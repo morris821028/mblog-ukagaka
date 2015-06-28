@@ -28,7 +28,8 @@
             var repeat = localStorage.repeat || 0,
                 shuffle = localStorage.shuffle || 'false',
                 continous = true,
-                autoplay = false,
+                autoplay = false, 
+                track = 0,
                 playlist = [{
                     title: 'シュガーソングとビターステップ',
                     artist: '血界戰線 ED',
