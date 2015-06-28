@@ -1,0 +1,208 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+    <link type="text/css" rel="stylesheet" href="css/ukagaka.css">
+    <link type="text/css" rel="stylesheet" href="css/simpleFontawesome.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src='js/jquery.morris.ukagaka.resource.js' type='text/javascript'></script>
+    <script src='js/typed.js' type='text/javascript'></script>
+    <!-- ukagaka start -->
+    <a href="https://github.com/morris821028/Web-UkagakaProj"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></img></a>   
+
+    <style>
+    body {
+      background: #E2E4E7;
+      padding: 0;
+      text-align: center;
+      font-family: 'open sans';
+      margin: 0;
+    }
+    
+    a {
+      text-decoration: none;
+    }
+    
+    
+    h1, h2 {
+      width: 100%;
+      float: left;
+    }
+    h1 {
+      margin-top: 100px;
+      color: #000;
+      margin-bottom: 5px;
+      font-size: 70px;
+      letter-spacing: -4px;
+      font-weight: 100;
+    }
+    h1 span {
+      font-size: 26px;
+      margin: 0 5px;
+      text-transform: capitalize;
+      background: rgba(0,0,0,0.85);
+      display: inline-block;
+      color: #6D461D;
+      border-radius: 5px 5px;
+      -webkit-border-radius: 5px 5px;
+      -moz-border-radius: 5px 5px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+      padding: 3px 10px;
+    }
+    h2 {
+      color: #6D461D;
+      font-weight: 100;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    
+    .pointer {
+      color: #9b59b6;
+      font-family: 'Pacifico', cursive;
+      font-size: 30px;
+      margin-top: 15px;
+    }
+    code {
+      margin: 20px 1%;
+      float: left;
+      width: 48%;
+      min-height: 256px;
+      background: rgba(0,0,0,0.1);
+      border: rgba(0,0,0,0.05) 5px solid;
+      border-radius: 5px;
+      padding:5px;
+      color: white;
+      text-align: left;
+      font-size: 15px;
+      margin-top: 25px;
+      display: block;
+      font-family: consolas;
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+    }
+    code.html {
+      color: #7EC9E6;
+    }
+    code.js {
+      color: #FFAD00;
+    }
+
+    .main {
+      float: left;
+      width: 100%;
+      margin: 0 auto;
+    }
+    
+    .main h1 {
+      float: left;
+      width: 100%;
+      font-size: 45px;
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      font-weight: 100;
+      color: white;
+      margin: 0;
+    }
+    
+    header {
+      position: relative;
+      z-index: 10;
+    }
+    .main section .page_container {
+      position: relative;
+      top: 25%;
+      margin: 0 auto 0;
+      max-width: 90%;
+      z-index: 3;
+    }
+    .main section  {
+      overflow: hidden;
+    }
+    
+    .main section > img {
+      position: absolute;
+      max-width: 100%;
+      z-index: 1;
+    }
+    .main section.page2 {
+      background: #555557 url(back-phone.png) no-repeat center -150px ;
+    }
+    .main section.page2 > img {
+      position: absolute;
+      top: -300px;
+      left: 50%;
+      margin-left: -1095px;
+    }
+    .main section.page2 .page_container {
+      margin-top: 50px;
+    }
+    .main section.page2 h1 {
+      text-align: center;
+      padding: 0;
+      margin-bottom: 15px;
+      font-size: 50px;
+      letter-spacing: -1px;
+      color: white;
+    }
+    .main section.page2 h2 {
+      color: rgba(255,255,255,0.85);
+      text-align: center;
+      line-height: 160%;
+      font-weight: 100;
+    }
+    .viewing-page-2 .back{
+      background: rgba(0, 0, 0, 0.25);
+      color: #FFF;
+    }  
+    </style>
+
+      <div class="main">        
+        <section class="page2">
+          <div class="page_container">
+          <h1>Ready-to-use plugin</h1>
+          <h2>All you need is an HTML markup, call the script !</h2>
+          <code class="html">
+&lt;div id='ukagaka_panel'&gt;&lt;/div&gt;
+          </code>
+          <code class="js">
+$(document).ready(function() {<br />&nbsp;&nbsp;&nbsp; $('#ukagaka_panel').ukagaka();<br />});
+            </code>
+          <code class="js">
+$.ukagaka.defaults = {<br />
+&nbsp;&nbsp;&nbsp;&nbsp;googleKey: '0ArRwmWo93u-mdG93a2dkSWxIbHEzZjRIeDdxZXdsU1E',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;googleFormkey: '1xADUIiBq1ksH7lxwSch1Nz_p2gSxdJttmv5OJOxJye0',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;googleSheet: &quot;od6&quot;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;googleSheetField: &quot;entry.2030600456&quot;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;talkTime: 60000,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ukagakaText: &quot;千代&quot;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;loadingText: ' .^100.^100.',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;learnPlaceholder: &quot;default: input for learn.&quot;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;menuMainText: &quot;使用選單功能&amp;#65292; 為什麼要聽你的！&quot;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;menuLearnText: &quot;$ 學習&quot;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;menuLogText: &quot;$ 日誌&quot;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;menuExitText: &quot;$ 結束&quot;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;menuCancelText: &quot;$ 取消&quot;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;menuSubmitText: &quot;$ 確認&quot;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;menuQueryText: &quot;請輸入想要讓千代學的話&lt;br/&gt;&lt;br/&gt;&quot;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;logText: &quot;更新日誌&lt;br/&gt;&lt;br/&gt;Morris 修正&lt;br/&gt;&lt;br/&gt;找尋 AI 系統&lt;br/&gt;找尋 AI 對話&lt;br/&gt;&quot;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;imgs: ['img/uk12.png', 'img/uk13.png', 'img/uk14.png', 'img/uk15.png', 'img/uk16.png', 'img/uk17.png', 'img/uk18.png', 'img/uk20.png', 'img/uk21.png', 'img/uk23.png', 'img/uk24.png', 'img/uk25.png', 'img/uk26.png']<br />
+};
+          </code>
+          </div>
+      </section>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#ukagaka_panel').ukagaka();
+        });
+    </script>
+    <div id='ukagaka_panel'></div>
+    <!-- ukagaka end -->
+</body>
+</html>
