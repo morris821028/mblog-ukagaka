@@ -30,19 +30,26 @@
                 continous = true,
                 autoplay = false,
                 playlist = [{
+                    title: 'シュガーソングとビターステップ',
+                    artist: '血界戰線 ED',
+                    album: '',
+                    cover: '',
+                    mp3: 'http://morris821028.github.io/file/music/Kekkai-Sensen-ED-Instrumental-ED.mp3',
+                    ogg: 'http://morris821028.github.io/file/music/Kekkai-Sensen-ED-Instrumental-ED.mp3'
+                }, {
                     title: 'さよならのこと',
                     artist: 'WHITE ALBUM2 ED',
                     album: '',
                     cover: '',
-                    mp3: 'http://morris821028.github.io//file/music/WHITE-ALBUM2-ED-Piano.mp3',
-                    ogg: 'http://morris821028.github.io//file/music/WHITE-ALBUM2-ED-Piano.mp3'
+                    mp3: 'http://morris821028.github.io/file/music/WHITE-ALBUM2-ED-Piano.mp3',
+                    ogg: 'http://morris821028.github.io/file/music/WHITE-ALBUM2-ED-Piano.mp3'
                 }, {
                     title: '光るなら',
                     artist: '四月は君の嘘 OP',
                     album: '',
                     cover: '',
-                    mp3: 'http://morris821028.github.io//file/music/Shigatsu-wa-Kimi-no-Uso-OP-Piano.mp3',
-                    ogg: 'http://morris821028.github.io//file/music/Shigatsu-wa-Kimi-no-Uso-OP-Piano.mp3'
+                    mp3: 'http://morris821028.github.io/file/music/Shigatsu-wa-Kimi-no-Uso-OP-Piano.mp3',
+                    ogg: 'http://morris821028.github.io/file/music/Shigatsu-wa-Kimi-no-Uso-OP-Piano.mp3'
                 }];
 
             var time = new Date(),
