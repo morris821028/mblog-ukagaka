@@ -29,6 +29,7 @@
                 shuffle = localStorage.shuffle || 'false',
                 continous = true,
                 autoplay = false,
+                track = 0,
                 playlist = [{
                     title: 'シュガーソングとビターステップ',
                     artist: '血界戰線 ED',
