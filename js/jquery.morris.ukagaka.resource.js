@@ -379,7 +379,7 @@
             } else {
                 alert("OOPS！" + $.ukagaka.ukagakaText + "不接受這個字串喔！");
             }
-			$(".ukagaka_box div").fadeOut(500);
+	    $(".ukagaka_box div").fadeOut(500);
             showText($.ukagaka.ukagakaText + " YEEEEE ");
         }
 
