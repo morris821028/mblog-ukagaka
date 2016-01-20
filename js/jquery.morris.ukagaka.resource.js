@@ -355,7 +355,7 @@
                     add.indexOf('style') > -1 || add.indexOf('link') > -1 || add.indexOf('iframe') > -1 || add.indexOf('head') > -1 ||
                     add.indexOf('nav') > -1 || add.indexOf('object') > -1 || add.indexOf('embed') > -1) ||
                 add.indexOf('>') > -1 || add.indexOf('>') > -1) {
-				/*
+		/*
                 $.ajax({
                     type: 'POST',
                     url: 'https://docs.google.com/forms/d/' + formkey + '/formResponse',
@@ -374,8 +374,8 @@
                         }
                     }
                 });
-				*/
-				$.get('https://docs.google.com/forms/d/' + formkey + '/formResponse?'+googleSheetField+"="+add,"");
+		*/
+		$.get('https://docs.google.com/forms/d/' + formkey + '/formResponse?'+googleSheetField+"="+add,"");
             } else {
                 alert("OOPS！" + $.ukagaka.ukagakaText + "不接受這個字串喔！");
             }
