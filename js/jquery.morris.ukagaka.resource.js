@@ -23,35 +23,14 @@
         that.html = function() {
             return '<div id="playblock"><div id="player"><div class="ctrl"><div class="tag"><strong>Title</strong><span class="artist">Artist</span><span class="album">Album</span></div><div class="control"><i class="icon-backward"></i><i class="icon-play"></i><i class="icon-forward"></i><span class="progress"><i class="icon-repeat repeat"></i><i class="icon-random"></i></span><span class="volume"><i class="icon-volume-up"></i><div class="slider"><div class="pace"></div></div></span></div><div class="progress"><div class="slider"><div class="loaded"></div><div class="pace"></div></div><div class="timer right">0:00</div></div></div></div></div>';
         }
-        that.deploy = function() {
+        that.deploy = function(playlist_json) {
             var player = $('#playblock');
             var repeat = localStorage.repeat || 0,
                 shuffle = localStorage.shuffle || 'false',
                 continous = true,
-                autoplay = false, 
+                autoplay = false,
                 track = 0,
-                playlist = [{
-                    title: 'シュガーソングとビターステップ',
-                    artist: '血界戰線 ED',
-                    album: '',
-                    cover: '',
-                    mp3: 'http://morris821028.github.io/file/music/Kekkai-Sensen-ED-Instrumental-ED.mp3',
-                    ogg: 'http://morris821028.github.io/file/music/Kekkai-Sensen-ED-Instrumental-ED.mp3'
-                }, {
-                    title: 'さよならのこと',
-                    artist: 'WHITE ALBUM2 ED',
-                    album: '',
-                    cover: '',
-                    mp3: 'http://morris821028.github.io/file/music/WHITE-ALBUM2-ED-Piano.mp3',
-                    ogg: 'http://morris821028.github.io/file/music/WHITE-ALBUM2-ED-Piano.mp3'
-                }, {
-                    title: '光るなら',
-                    artist: '四月は君の嘘 OP',
-                    album: '',
-                    cover: '',
-                    mp3: 'http://morris821028.github.io/file/music/Shigatsu-wa-Kimi-no-Uso-OP-Piano.mp3',
-                    ogg: 'http://morris821028.github.io/file/music/Shigatsu-wa-Kimi-no-Uso-OP-Piano.mp3'
-                }];
+                playlist = playlist_json;
 
             var time = new Date(),
                 currentTrack = shuffle === 'true' ? time.getTime() % playlist.length : 0,
@@ -260,35 +239,37 @@
     }
 
     $.ukagaka = function(elem, options, arg) {
-
-        if (options && typeof(options) == 'string') {
-            if (options == 'loadTalk') {
-                loadTalk(options);
+        $.getJSON(options.jsonPath, function(json) {
+            options.modelConfig = json;
+            if (options && typeof(options) == 'string') {
+                if (options == 'loadTalk')
+                    loadTalk(options);
+                return;
+            } else {
+                init(elem, options);
             }
-            return;
-        } else {
-            init(elem, options);
+        });
+
+        /**
+         *  load model image relative path
+         */
+        function loadImagePath(options, status, index) {
+            if (index < 0)
+                index = Math.floor(Math.random() * options.modelConfig.motions[status].length);
+            return options.modelConfig.filepath + 
+                    options.modelConfig.motions[status][index].file;
+        }
+        /**
+         *  load ui text with model
+         */
+        function loadUItext(options, label) {
+            return options.modelConfig.ui[label];
         }
 
         function init(elem, options) {
-            var o = options;
+            var obj = $(elem),
+                sheetfield = options.googleSheetField;
 
-            var obj = $(elem);
-
-            var sheetfield = o.googleSheetField;
-
-            var loadingText = o.loadingText,
-                learnPlaceholder = o.learnPlaceholder,
-                logText = o.logText,
-                menuMainText = o.menuMainText,
-                menuLearnText = o.menuLearnText,
-                menuLogText = o.menuLogText,
-                menuExitText = o.menuExitText,
-                menuCancelText = o.menuCancelText,
-                menuSubmitText = o.menuSubmitText,
-                menuQueryText = o.menuQueryText;
-
-            $.ukagaka.ukagakaText = o.ukagakaText;
             $.ukagaka.mp3player = MediaPlayer();
 
             obj.append(
@@ -297,9 +278,21 @@
                         $.ukagaka.mp3player.html() +
                         "<div class='ukagaka_box'>" +
                             "<div class='ukagaka_msg' id='ukagaka_msgbox'></div>" +
-                            "<div class='ukagaka_msg' id='ukagaka_menubox' style='display:none'>" + menuMainText + "<br/><br/><span id='ukagaka_menu_btn_addstring'>" + menuLearnText + "</span><span id='ukagaka_menu_btn_renewlist'>" + menuLogText + "</span><span id='ukagaka_menu_btn_exit'>" + menuExitText + "</span></div>" + 
-                            "<div class='ukagaka_msg' id='ukagaka_stringinput' style='display:none'>" + menuQueryText + "<input id='ukagaka_addstring' type='text' placeholder='" + learnPlaceholder + "'/><br/><span id='ukagaka_addmenu_add'>" + menuSubmitText + "</span><span id='ukagaka_btn_menu'>" + menuCancelText + "</span></div>" +
-                            "<div class='ukagaka_msg' id='ukagaka_renewlist' style='display:none'>" + logText + "<span id='ukagaka_btn_menu'>" + menuCancelText + "</span></div>" + 
+                            "<div class='ukagaka_msg' id='ukagaka_menubox' style='display:none'>" + 
+                                loadUItext(options, 'menuMainText') + 
+                                "<br/><br/><span id='ukagaka_menu_btn_addstring'>" + 
+                                loadUItext(options, 'menuLearnText') + 
+                                "</span><span id='ukagaka_menu_btn_renewlist'>" + 
+                                loadUItext(options, 'menuLogText') + 
+                                "</span><span id='ukagaka_menu_btn_exit'>" + 
+                                loadUItext(options, 'menuExitText') + 
+                            "</span></div>" + 
+                            "<div class='ukagaka_msg' id='ukagaka_stringinput' style='display:none'>" + 
+                                loadUItext(options, 'menuQueryText') + 
+                                "<input id='ukagaka_addstring' type='text' placeholder='" + loadUItext(options, 'learnPlaceholder') + "'/><br/><span id='ukagaka_addmenu_add'>" + 
+                                loadUItext(options, 'menuSubmitText') + "</span><span id='ukagaka_btn_menu'>" + 
+                                loadUItext(options, 'menuCancelText') + "</span></div>" +
+                            "<div class='ukagaka_msg' id='ukagaka_renewlist' style='display:none'>" + loadUItext(options, 'logText') + "<span id='ukagaka_btn_menu'>" + loadUItext(options, 'menuCancelText') + "</span></div>" + 
                             "<input id='ukagaka_sheetfield' type='hidden' value='" + sheetfield + "'>" +
                         "</div>" +
                     "</div>" +
@@ -307,7 +300,7 @@
             );
             
             obj.after(
-                    "<img class='ukagaka_img' src='" + options.imgs[0] + "'></img>" + 
+                    "<img class='ukagaka_img' src='" + loadImagePath(options, 'idle', 0) + "'></img>" + 
                     "<div id='ukagaka_controlpanel'><ul>" +
                             "<li id='ukagaka_btn_up'><i class='icon-gotop'></i></li>" +
                             "<li id='ukagaka_btn_down'><i class='icon-godown'></i></li>" +
@@ -321,7 +314,7 @@
             loadTalk(options);
             actionSetting(options, elem);
 
-            $.ukagaka.mp3player.deploy();
+            $.ukagaka.mp3player.deploy(options.modelConfig.playlist);
             $.ukagaka.mp3player.toggle();
         }
         /*
@@ -343,39 +336,27 @@
             });
         }
 
+        function isXSSsafe(text) {
+            return text.length >= 1 && text.indexOf('script') == -1 && text.indexOf('body') == -1 &&
+                text.indexOf('style') == -1 && text.indexOf('link') == -1 && text.indexOf('iframe') == -1 && 
+                text.indexOf('head') == -1 && text.indexOf('nav') == -1 && text.indexOf('object') == -1 && 
+                text.indexOf('embed') == -1 && text.indexOf('>') == -1 && text.indexOf('>') == -1;
+        }
+
         function sendLearnText(options) {
-            var o = options;
-
-            var formkey = o.googleFormkey;
-
+            var formkey = options.googleFormkey;
             var add = $("input#ukagaka_addstring").val(),
                 googleSheetField = $('input#ukagaka_sheetfield').val(),
                 sendData = {googleSheetField : add};
-            if (!((add.length <= 1) || add.indexOf('script') > -1 || add.indexOf('body') > -1 ||
-                    add.indexOf('style') > -1 || add.indexOf('link') > -1 || add.indexOf('iframe') > -1 || add.indexOf('head') > -1 ||
-                    add.indexOf('nav') > -1 || add.indexOf('object') > -1 || add.indexOf('embed') > -1) ||
-                add.indexOf('>') > -1 || add.indexOf('>') > -1) {
-                $.ajax({
-                    type: 'POST',
-                    url: 'https://docs.google.com/forms/d/' + formkey + '/formResponse',
-                    data: sendData,
-                    dataType: "xml",
-                    statusCode: {
-                        0: function() {
-                            $("input#ukagaka_addstring").attr("value", "");
-                            $(".ukagaka_box div").fadeOut(500);
-                            showText($.ukagaka.ukagakaText + "學習了 !");
-                        },
-                        200: function() {
-                            $("input#ukagaka_addstring").attr("value", "");
-                            $(".ukagaka_box div").fadeOut(500);
-                            showText($.ukagaka.ukagakaText + "學習了 !");
-                        }
-                    }
+                
+            if (isXSSsafe(add)) {
+                $.get('https://docs.google.com/forms/d/'+formkey+'/formResponse?'+googleSheetField+"="+add, function(data) {
+                    showText(loadUItext(options, "learnText"));
                 });
             } else {
-                alert("OOPS！" + $.ukagaka.ukagakaText + "不接受這個字串喔！");
+                alert(loadUItext(options, 'rejectText'));
             }
+            $(".ukagaka_box div").fadeOut(500);
         }
 
         function showText(text) {
@@ -452,7 +433,7 @@
             }).on('click', "#ukagaka_addmenu_add", function(event) {
                 sendLearnText(options);
             }).on('click', "#ukagaka_btn_refresh", function(event) {
-                $(".ukagaka_img").attr("src", options.imgs[Math.floor(Math.random() * options.imgs.length)]);
+                $(".ukagaka_img").attr("src", loadImagePath(options, 'idle', -1));
             }).on('click', "#ukagaka_btn_music", function(event) {
                 $.ukagaka.mp3player.toggle();
             }).on('click', "#ukagaka_btn_power", function(event) {
@@ -462,24 +443,13 @@
     };
 
     $.ukagaka.defaults = {
+        jsonPath: 'js/assets/chiyo/chiyo.model.json',
+        modelConfig: null,
         googleKey: '0ArRwmWo93u-mdG93a2dkSWxIbHEzZjRIeDdxZXdsU1E',
         googleFormkey: '1xADUIiBq1ksH7lxwSch1Nz_p2gSxdJttmv5OJOxJye0',
         googleSheet: "od6",
         googleSheetField: "entry.2030600456",
-        talkTime: 60000,
-
-        ukagakaText: "千代",
-        loadingText: ' .^100.^100.',
-        learnPlaceholder: "default: input for learn.",
-        menuMainText: "使用選單功能&#65292; 為什麼要聽你的！",
-        menuLearnText: "$ 學習",
-        menuLogText: "$ 日誌",
-        menuExitText: "$ 結束",
-        menuCancelText: "$ 取消",
-        menuSubmitText: "$ 確認",
-        menuQueryText: "請輸入想要讓千代學的話<br/><br/>",
-        logText: "更新日誌<br/><br/>Morris 修正<br/><br/>找尋 AI 系統<br/>找尋 AI 對話<br/>",
-        imgs: ['img/uk12.png', 'img/uk13.png', 'img/uk14.png', 'img/uk15.png', 'img/uk16.png', 'img/uk17.png', 'img/uk18.png', 'img/uk20.png', 'img/uk21.png', 'img/uk23.png', 'img/uk24.png', 'img/uk25.png', 'img/uk26.png']
+        talkTime: 60000
     };
 
     $.ukagaka.talking = [];
