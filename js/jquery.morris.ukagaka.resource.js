@@ -327,9 +327,13 @@
                 formkey = opt.googleFormkey,
                 sheetfield = opt.googleSheetField;
 
+            var text2html = function(text) {
+                return text.replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+            }
+
             $.getJSON("https://spreadsheets.google.com/feeds/list/" + key + "/" + sheet + "/public/values?alt=json", function(JData) {
                 for (var i = 0; i < JData.feed.entry.length; i++) {
-                    $.ukagaka.talking[i] = JData.feed.entry[i].gsx$storedatabase.$t;
+                    $.ukagaka.talking[i] = text2html(JData.feed.entry[i].gsx$storedatabase.$t);
                 }
                 showText($.ukagaka.talking[Math.floor(Math.random() * $.ukagaka.talking.length)]);
                 $('input#ukagaka_addstring').attr('placeholder', $.ukagaka.ukagakaText + '學會了' + JData.feed.entry.length + '個字彙');
