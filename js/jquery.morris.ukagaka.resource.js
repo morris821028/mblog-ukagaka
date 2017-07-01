@@ -367,27 +367,24 @@
             $.ukagaka.nextText = text;
         }
 
-        function typed(text) {
-            setInterval(function() {
-                if ($.ukagaka.nowText == $.ukagaka.nextText)
-                    return;
-                $("#ukagaka_msgbox").typed('reset');
-                $.ukagaka.nowText = $.ukagaka.nextText;
-                $("#ukagaka_msgbox").typed({
-                    strings: [$.ukagaka.nowText],
+        function actionSetting(opt, elem) {
+            $.ukagaka.typed = new Typed("#ukagaka_msgbox", {
+                strings: [$.ukagaka.nowText],
                     typeSpeed: 20,
                     contentType: 'html',
                     loop: false,
                     backDelay: 500,
                     loopCount: false,
-                    callback: function() {},
-                    resetCallback: function() {}
-                });
+                    onReset: function(self) {
+                        self.strings[0] = $.ukagaka.nextText;
+                        $.ukagaka.nowText = $.ukagaka.nextText;  
+                    }
+            });
+            setInterval(function() {
+                if ($.ukagaka.nowText == $.ukagaka.nextText)
+                    return;
+                $.ukagaka.typed.reset();
             }, 1000);
-        }
-
-        function actionSetting(opt, elem) {
-            typed('');
 
             var obj = $(elem);
             var loadingText = opt.loadingText;
@@ -463,5 +460,6 @@
     $.ukagaka.nowText = '';
     $.ukagaka.ukagakaText = '';
     $.ukagaka.mp3player = '';
+    $.ukagaka.typed = '';
 
 })(jQuery);
